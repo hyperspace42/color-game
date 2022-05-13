@@ -1,11 +1,17 @@
 <template>
-  <div class="container mx-auto mt-8"></div>
+  <div class="container mx-auto mt-8">
+    <Game/>
+  </div>
 </template>
 
 <script>
+import Game from '@components/Game.vue'
+
 export default {
   name: 'App',
-  components: {},
+  components: {
+    Game
+  },
 };
 </script>
 

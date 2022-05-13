@@ -5,13 +5,13 @@
     "baseUrl": "./",
     "moduleResolution": "node",
     "paths": {
-      "@": [
+      "@/*": [
         "src/*"
       ],
-      "@components": [
+      "@components/*": [
         "src/components/*"
       ],
-      "@store": [
+      "@store/*": [
         "src/store/*"
       ],
     },
