@@ -14,10 +14,11 @@ export const useGameStore = defineStore('gameStore', {
         'indigo-square',
         'purple-square',
       ],
+      showingColor: 'none',
       colorStack: [],
       userPickedColorStack: [],
       countOfRounds: 0,
-      showingColor: 'none',
+      lifes: 3,
       isPreview: false,
       isGameRunning: false,
     };
@@ -45,6 +46,7 @@ export const useGameStore = defineStore('gameStore', {
       this.colorStack = [];
       this.userPickedColorStack = [];
       this.countOfRounds = 0;
+      this.lifes = 0
       this.showingColor = 'none';
       this.isPreview = false;
     },
@@ -52,12 +54,23 @@ export const useGameStore = defineStore('gameStore', {
     startGame() {
       this.clearValues();
       this.isGameRunning = true;
+      this.lifes = 3
       this.startNewRound();
     },
 
     endGame() {
       this.clearValues();
       this.isGameRunning = false;
+    },
+
+    removeLife() {
+      this.lifes -= 1;
+      this.repeatRound()
+    },
+
+    repeatRound() {
+      this.userPickedColorStack = []
+      this.previewColors()
     },
 
     startNewRound() {
@@ -91,8 +104,12 @@ export const useGameStore = defineStore('gameStore', {
       });
 
       if (!every) {
-        console.log('Game ended');
-        this.endGame();
+        this.removeLife();
+
+        if (this.lifes == 0) {
+          console.log('Game ended');
+          this.endGame();
+        }
         return;
       }
 
