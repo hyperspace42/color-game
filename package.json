@@ -9,6 +9,7 @@
   "dependencies": {
     "autoprefixer": "^10",
     "core-js": "^3.8.3",
+    "dayjs": "^1.11.2",
     "pinia": "^2.0.14",
     "postcss": "^8",
     "tailwindcss": "^3",

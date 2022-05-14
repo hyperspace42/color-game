@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia';
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
 
 export const useGameStore = defineStore('gameStore', {
   state: () => {
@@ -17,6 +19,7 @@ export const useGameStore = defineStore('gameStore', {
       showingColor: 'none',
       colorStack: [],
       userPickedColorStack: [],
+      records: [],
       countOfRounds: 0,
       lifes: 3,
       isPreview: false,
@@ -59,8 +62,10 @@ export const useGameStore = defineStore('gameStore', {
     },
 
     endGame() {
+      this.saveRecords();
       this.clearValues();
       this.isGameRunning = false;
+      this.loadRecords();
     },
 
     removeLife() {
@@ -75,7 +80,7 @@ export const useGameStore = defineStore('gameStore', {
 
       this.previewColors();
 
-      setTimeout(() => (this.isPreview = false), this.colorStack.length * 1300 + 750);
+      setTimeout(() => (this.isPreview = false), this.colorStack.length * 1000 + 750);
     },
 
     startNewRound() {
@@ -88,18 +93,27 @@ export const useGameStore = defineStore('gameStore', {
 
       this.previewColors();
 
-      setTimeout(() => (this.isPreview = false), this.colorStack.length * 1300 + 750);
+      setTimeout(() => (this.isPreview = false), this.colorStack.length * 1000 + 750);
+    },
+
+    loadRecords() {
+      this.records = JSON.parse(localStorage.getItem('records')) || [];
+    },
+
+    saveRecords() {
+      const date = dayjs().format('YYYY MMM D, HH:mm:ss')
+      localStorage.setItem('records', JSON.stringify([...this.records, `${this.countOfRounds} ${date}`]));
     },
 
     previewColors() {
       this.colorStack.forEach((color, index) => {
         setTimeout(() => {
           this.showingColor = 'none';
-        }, (index + 1) * 1300 - 400);
+        }, (index + 1) * 1000 - 400);
 
         setTimeout(() => {
           this.showingColor = color;
-        }, (index + 1) * 1300);
+        }, (index + 1) * 1000);
       });
     },
 

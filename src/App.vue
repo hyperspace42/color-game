@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto mt-12">
-    <div v-if="isGameRunning">
+    <div class="relative" v-if="isGameRunning">
       <Game />
     </div>
     <div v-else>
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { onBeforeMount } from 'vue'
 import Game from '@components/game/Game.vue';
 import MainScreen from '@components/MainScreen.vue';
 
@@ -27,6 +28,10 @@ export default {
     const gameStore = useGameStore();
 
     const { isGameRunning } = storeToRefs(gameStore);
+
+    onBeforeMount(() => {
+      gameStore.loadRecords()
+    })
 
     return { isGameRunning };
   },
