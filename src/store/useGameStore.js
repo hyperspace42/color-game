@@ -31,7 +31,7 @@ export const useGameStore = defineStore('gameStore', {
   actions: {
     pickRandomColor() {
       const colors = this.getColors;
-      
+
       let color = Math.floor(Math.random() * colors.length);
 
       this.colorStack.push(colors[color]);
