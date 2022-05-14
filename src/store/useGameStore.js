@@ -3,35 +3,35 @@ import { defineStore } from 'pinia';
 export const useGameStore = defineStore('gameStore', {
   state: () => {
     return {
-      squareColors: [
-        'white-square',
+      colorsClasses: [
         'red-square',
+        'orange-square',
         'amber-square',
-        'purple-square',
-        'green-square',
-        'indigo-square',
-        'pink-square',
+        'lime-square',
+        'emerald-square',
+        'cyan-square',
         'blue-square',
-        'black-square',
+        'indigo-square',
+        'purple-square',
       ],
       colorStack: [],
       userPickedColorStack: [],
       countOfRounds: 0,
       showingColor: 'none',
       isPreview: false,
+      isGameRunning: false,
     };
   },
 
   getters: {
     getColors(state) {
-      return state.squareColors.map((color) => color.split('-')[0]);
+      return state.colorsClasses.map((color) => color.split('-')[0]);
     },
   },
 
   actions: {
     pickRandomColor() {
       const colors = this.getColors;
-
       let color = Math.floor(Math.random() * colors.length);
 
       this.colorStack.push(colors[color]);
@@ -39,6 +39,25 @@ export const useGameStore = defineStore('gameStore', {
 
     pickColor(color) {
       this.userPickedColorStack.push(color);
+    },
+
+    clearValues() {
+      this.colorStack = [];
+      this.userPickedColorStack = [];
+      this.countOfRounds = 0;
+      this.showingColor = 'none';
+      this.isPreview = false;
+    },
+
+    startGame() {
+      this.clearValues();
+      this.isGameRunning = true;
+      this.startNewRound();
+    },
+
+    endGame() {
+      this.clearValues();
+      this.isGameRunning = false;
     },
 
     startNewRound() {
@@ -49,15 +68,9 @@ export const useGameStore = defineStore('gameStore', {
 
       this.isPreview = true;
 
-      this.previewColors()
+      this.previewColors();
 
       setTimeout(() => (this.isPreview = false), this.colorStack.length * 1300 + 750);
-    },
-
-    endGame() {
-      this.colorStack = [];
-      this.userPickedColorStack = [];
-      this.countOfRounds = 0;
     },
 
     previewColors() {
@@ -74,20 +87,18 @@ export const useGameStore = defineStore('gameStore', {
 
     comparePickedColors() {
       const every = this.userPickedColorStack.every((color, index) => {
-        return color == this.colorStack[index];
+        return color === this.colorStack[index];
       });
 
-      if (every) {
-        if (this.colorStack.length === this.userPickedColorStack.length) {
-          this.startNewRound();
-        }
-
+      if (!every) {
+        console.log('Game ended');
+        this.endGame();
         return;
       }
 
-      console.log('Game ended');
-      this.endGame();
-      this.startNewRound();
+      if (this.colorStack.length === this.userPickedColorStack.length) {
+        this.startNewRound();
+      }
     },
   },
 });

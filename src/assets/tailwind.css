@@ -8,8 +8,8 @@
   .red-square {
     @apply text-red-900 bg-red-400 hover:text-red-200 hover:bg-red-500;
   }
-  .green-square {
-    @apply text-green-900 bg-green-400 hover:text-green-200 hover:bg-green-500;
+  .cyan-square {
+    @apply text-cyan-900 bg-cyan-400 hover:text-cyan-200 hover:bg-cyan-500;
   }
   .blue-square {
     @apply text-blue-900 bg-blue-400 hover:text-blue-200 hover:bg-blue-500;
@@ -23,20 +23,20 @@
   .indigo-square {
     @apply text-indigo-900 bg-indigo-400 hover:text-indigo-200 hover:bg-indigo-500;
   }
-  .pink-square {
-    @apply text-pink-900 bg-pink-400 hover:text-pink-200 hover:bg-pink-500;
+  .orange-square {
+    @apply text-orange-900 bg-orange-400 hover:text-orange-200 hover:bg-orange-500;
   }
-  .white-square {
-    @apply text-zinc-900 bg-zinc-200 hover:text-zinc-600 hover:bg-zinc-300;
+  .lime-square {
+    @apply text-lime-900 bg-lime-400 hover:text-lime-200 hover:bg-lime-500;
   }
-  .black-square {
-    @apply text-zinc-200 bg-zinc-700 hover:text-zinc-300 hover:bg-zinc-800;
+  .emerald-square {
+    @apply text-emerald-900 bg-emerald-400 hover:text-emerald-200 hover:bg-emerald-500;
   }
   .red-show {
     @apply text-red-900 bg-red-400;
   }
-  .green-show {
-    @apply text-green-900 bg-green-400;
+  .cyan-show {
+    @apply text-cyan-900 bg-cyan-400;
   }
   .blue-show {
     @apply text-blue-900 bg-blue-400;
@@ -50,14 +50,14 @@
   .indigo-show {
     @apply text-indigo-900 bg-indigo-400;
   }
-  .pink-show {
-    @apply text-pink-900 bg-pink-400;
+  .orange-show {
+    @apply text-orange-900 bg-orange-400;
   }
-  .white-show {
-    @apply text-zinc-900 bg-zinc-200;
+  .lime-show {
+    @apply text-lime-900 bg-lime-400;
   }
-  .black-show {
-    @apply text-zinc-200 bg-zinc-700;
+  .emerald-show {
+    @apply text-emerald-900 bg-emerald-400;
   }
   .none-show {
     @apply bg-zinc-900;
