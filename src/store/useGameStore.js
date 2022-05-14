@@ -46,7 +46,7 @@ export const useGameStore = defineStore('gameStore', {
       this.colorStack = [];
       this.userPickedColorStack = [];
       this.countOfRounds = 0;
-      this.lifes = 0
+      this.lifes = 0;
       this.showingColor = 'none';
       this.isPreview = false;
     },
@@ -54,7 +54,7 @@ export const useGameStore = defineStore('gameStore', {
     startGame() {
       this.clearValues();
       this.isGameRunning = true;
-      this.lifes = 3
+      this.lifes = 3;
       this.startNewRound();
     },
 
@@ -65,12 +65,17 @@ export const useGameStore = defineStore('gameStore', {
 
     removeLife() {
       this.lifes -= 1;
-      this.repeatRound()
+      this.repeatRound();
     },
 
     repeatRound() {
-      this.userPickedColorStack = []
-      this.previewColors()
+      this.userPickedColorStack = [];
+
+      this.isPreview = true;
+
+      this.previewColors();
+
+      setTimeout(() => (this.isPreview = false), this.colorStack.length * 1300 + 750);
     },
 
     startNewRound() {
@@ -104,12 +109,13 @@ export const useGameStore = defineStore('gameStore', {
       });
 
       if (!every) {
-        this.removeLife();
-
-        if (this.lifes == 0) {
+        if (this.lifes === 1) {
           console.log('Game ended');
           this.endGame();
+          return;
         }
+
+        this.removeLife();
         return;
       }
 
