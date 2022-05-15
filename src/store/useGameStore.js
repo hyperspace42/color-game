@@ -24,6 +24,7 @@ export const useGameStore = defineStore('gameStore', {
       lifes: 3,
       isPreview: false,
       isGameRunning: false,
+      timeouts: [],
     };
   },
 
@@ -51,7 +52,13 @@ export const useGameStore = defineStore('gameStore', {
 
     //#region game parameters control actions
 
+    clearTimeouts() {
+      this.timeouts.map(clearTimeout)
+      this.timeouts = []
+    },
+
     clearValues() {
+      this.clearTimeouts();
       this.colorStack = [];
       this.userPickedColorStack = [];
       this.countOfRounds = 0;
@@ -96,6 +103,8 @@ export const useGameStore = defineStore('gameStore', {
       this.countOfRounds += 1;
       this.userPickedColorStack = [];
 
+      this.clearTimeouts()
+
       this.pickRandomColor();
 
       this.isPreview = true;
@@ -122,13 +131,17 @@ export const useGameStore = defineStore('gameStore', {
 
     previewColors() {
       this.colorStack.forEach((color, index) => {
-        setTimeout(() => {
-          this.previewColor = 'none';
-        }, (index + 1) * 1000 - 400);
+        this.timeouts.push(
+          setTimeout(() => {
+            this.previewColor = 'none';
+          }, (index + 1) * 1000 - 400)
+        );
 
-        setTimeout(() => {
-          this.previewColor = color;
-        }, (index + 1) * 1000);
+        this.timeouts.push(
+          setTimeout(() => {
+            this.previewColor = color;
+          }, (index + 1) * 1000)
+        );
       });
     },
 
