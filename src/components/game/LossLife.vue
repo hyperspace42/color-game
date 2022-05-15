@@ -17,14 +17,14 @@ onMounted(() => {
 
   watch(lifes, () => {
     lossLifeNode.style.opacity = 1;
-    setTimeout(() => (lossLifeNode.style.opacity = 0), 150);
+    setTimeout(() => (lossLifeNode.style.opacity = 0), 175);
   });
 });
 </script>
 
 <style scoped>
 .loss_life {
-  transition: 0.15s ease-in;
+  transition: 0.175s cubic-bezier(.72,.7,.54,1.08);
   pointer-events: none;
 
   /* ff 3.6+ */

@@ -30,7 +30,7 @@ const props = defineProps({
 
 const pickColor = function () {
   gameStore.pickColor(props.color);
-  gameStore.comparePickedColors();
+  gameStore.gameIsEnded();
 };
 </script>
 

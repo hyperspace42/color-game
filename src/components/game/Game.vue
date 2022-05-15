@@ -10,7 +10,7 @@
     Rounds:
     <span class="text-lime-500">{{ countOfRounds }}</span>
   </p>
-  <ColorsPreview :color="showingColor" />
+  <ColorsPreview :color="previewColor" />
   <GameLifes />
   <div class="w-fit grid grid-cols-3 grid-rows-3 gap-12 mx-auto justify-center mt-8">
     <GamePickColorButton v-for="colorClass in colorsClasses" :key="colorClass" :color="colorClass.split('-')[0]" :colorClass="colorClass" />
