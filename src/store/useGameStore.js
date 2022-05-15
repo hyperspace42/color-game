@@ -16,6 +16,7 @@ export const useGameStore = defineStore('gameStore', {
         'indigo-square',
         'purple-square',
       ],
+      shuffledColorsClasses: [],
       previewColor: 'none',
       colorStack: [],
       userPickedColorStack: [],
@@ -32,20 +33,35 @@ export const useGameStore = defineStore('gameStore', {
     getColors(state) {
       return state.colorsClasses.map((color) => color.split('-')[0]);
     },
+    getShuffledColors(state) {
+      return state.shuffledColorsClasses.map((color) => color.split('-')[0]);
+    },
   },
 
   actions: {
-    //#region color pick actions
+    //#region color actions
 
     pickRandomColor() {
-      const colors = this.getColors;
-      let color = Math.floor(Math.random() * colors.length);
+      const colors = this.getShuffledColors;
+      const colorIndex = Math.floor(Math.random() * colors.length);
 
-      this.colorStack.push(colors[color]);
+      this.colorStack.push(colors[colorIndex]);
     },
 
     pickColor(color) {
       this.userPickedColorStack.push(color);
+    },
+
+    shuffleColors() {
+      this.shuffledColorsClasses = [];
+      const colors = JSON.parse(JSON.stringify(this.colorsClasses));
+
+      for (let i = 0; i < 9; i++) {
+        const colorIndex = Math.floor(Math.random() * colors.length);
+        const color = colors[colorIndex];
+        colors.splice(colorIndex, 1);
+        this.shuffledColorsClasses.push(color);
+      }
     },
 
     //#endregion
@@ -53,8 +69,8 @@ export const useGameStore = defineStore('gameStore', {
     //#region game parameters control actions
 
     clearTimeouts() {
-      this.timeouts.map(clearTimeout)
-      this.timeouts = []
+      this.timeouts.map(clearTimeout);
+      this.timeouts = [];
     },
 
     clearValues() {
@@ -77,7 +93,6 @@ export const useGameStore = defineStore('gameStore', {
       this.saveRecords();
       this.clearValues();
       this.isGameRunning = false;
-      this.loadRecords();
     },
 
     removeLife() {
@@ -89,21 +104,12 @@ export const useGameStore = defineStore('gameStore', {
 
     // #region rounds control actions
 
-    repeatRound() {
-      this.userPickedColorStack = [];
-
-      this.isPreview = true;
-
-      this.previewColors();
-
-      setTimeout(() => (this.isPreview = false), this.colorStack.length * 1000 + 750);
-    },
-
     startNewRound() {
+      this.shuffleColors();
       this.countOfRounds += 1;
       this.userPickedColorStack = [];
 
-      this.clearTimeouts()
+      this.clearTimeouts();
 
       this.pickRandomColor();
 
@@ -111,7 +117,17 @@ export const useGameStore = defineStore('gameStore', {
 
       this.previewColors();
 
-      setTimeout(() => (this.isPreview = false), this.colorStack.length * 1000 + 750);
+      this.pushIntoTimeoutsArray(setTimeout(() => (this.isPreview = false), this.colorStack.length * 1000 + 750));
+    },
+
+    repeatRound() {
+      this.userPickedColorStack = [];
+
+      this.isPreview = true;
+
+      this.previewColors();
+
+      this.pushIntoTimeoutsArray(setTimeout(() => (this.isPreview = false), this.colorStack.length * 1000 + 750));
     },
 
     // #endregion
@@ -125,24 +141,29 @@ export const useGameStore = defineStore('gameStore', {
     saveRecords() {
       const date = dayjs().format('YYYY MMM D, HH:mm:ss');
       localStorage.setItem('records', JSON.stringify([...this.records, `${this.countOfRounds} ${date}`]));
+      this.loadRecords()
     },
 
     clearRecords() {
-      this.records = []
-      localStorage.removeItem('records')
+      this.records = [];
+      localStorage.removeItem('records');
     },
 
     // #endregion
 
+    pushIntoTimeoutsArray(timeout) {
+      this.timeouts.push(timeout)
+    },
+
     previewColors() {
       this.colorStack.forEach((color, index) => {
-        this.timeouts.push(
+        this.pushIntoTimeoutsArray(
           setTimeout(() => {
             this.previewColor = 'none';
           }, (index + 1) * 1000 - 400)
         );
 
-        this.timeouts.push(
+        this.pushIntoTimeoutsArray(
           setTimeout(() => {
             this.previewColor = color;
           }, (index + 1) * 1000)

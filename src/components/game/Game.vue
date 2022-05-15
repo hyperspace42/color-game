@@ -18,7 +18,7 @@
   <ColorsPreview :color="previewColor" />
   <GameLifes />
   <div class="w-fit grid grid-cols-3 grid-rows-3 gap-12 mx-auto justify-center mt-8">
-    <GamePickColorButton v-for="colorClass in colorsClasses" :key="colorClass" :color="colorClass.split('-')[0]" :colorClass="colorClass" />
+    <GamePickColorButton v-for="colorClass in shuffledColorsClasses" :key="colorClass" :color="colorClass.split('-')[0]" :colorClass="colorClass" />
   </div>
   <UserPickedPreview />
 </template>
@@ -37,7 +37,7 @@ import { storeToRefs } from 'pinia';
 
 const gameStore = useGameStore();
 
-const { colorsClasses, previewColor, countOfRounds } = storeToRefs(gameStore);
+const { shuffledColorsClasses, previewColor, countOfRounds } = storeToRefs(gameStore);
 
 const endGame = function () {
   gameStore.endGame();
