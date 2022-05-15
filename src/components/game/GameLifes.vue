@@ -13,7 +13,7 @@
       <span v-else>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-8 w-8 text-zinc-500"
+          class="h-8 w-8 text-red-900"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

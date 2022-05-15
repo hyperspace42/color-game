@@ -8,7 +8,7 @@
   </button>
   <p class="text-2xl text-zinc-200 absolute top-6 left-8">
     Rounds:
-    <span class="text-lime-500">{{ countOfRounds }}</span>
+    <span class="text-emerald-500">{{ countOfRounds }}</span>
   </p>
   <ColorsPreview :color="previewColor" />
   <GameLifes />

@@ -6,31 +6,31 @@
 
 @layer components {
   .red-square {
-    @apply text-red-900 bg-red-400 hover:text-red-200 hover:bg-red-500;
+    @apply text-red-900 bg-red-400 hover:text-red-200 hover:bg-red-500 hover:shadow-red-700 disabled:hover:shadow-zinc-700 hover:shadow-lg;
   }
   .cyan-square {
-    @apply text-cyan-900 bg-cyan-400 hover:text-cyan-200 hover:bg-cyan-500;
+    @apply text-cyan-900 bg-cyan-400 hover:text-cyan-200 hover:bg-cyan-500 hover:shadow-cyan-700 disabled:hover:shadow-zinc-700 hover:shadow-lg;
   }
   .blue-square {
-    @apply text-blue-900 bg-blue-400 hover:text-blue-200 hover:bg-blue-500;
+    @apply text-blue-900 bg-blue-400 hover:text-blue-200 hover:bg-blue-500 hover:shadow-blue-700 disabled:hover:shadow-zinc-700 hover:shadow-lg;
   }
   .purple-square {
-    @apply text-purple-900 bg-purple-400 hover:text-purple-200 hover:bg-purple-500;
+    @apply text-purple-900 bg-purple-400 hover:text-purple-200 hover:bg-purple-500 hover:shadow-purple-700 disabled:hover:shadow-zinc-700 hover:shadow-lg;
   }
   .amber-square {
-    @apply text-amber-900 bg-amber-400 hover:text-amber-200 hover:bg-amber-500;
+    @apply text-amber-900 bg-amber-400 hover:text-amber-200 hover:bg-amber-500 hover:shadow-amber-700 disabled:hover:shadow-zinc-700 hover:shadow-lg;
   }
   .indigo-square {
-    @apply text-indigo-900 bg-indigo-400 hover:text-indigo-200 hover:bg-indigo-500;
+    @apply text-indigo-900 bg-indigo-400 hover:text-indigo-200 hover:bg-indigo-500 hover:shadow-indigo-700 disabled:hover:shadow-zinc-700 hover:shadow-lg;
   }
   .orange-square {
-    @apply text-orange-900 bg-orange-400 hover:text-orange-200 hover:bg-orange-500;
+    @apply text-orange-900 bg-orange-400 hover:text-orange-200 hover:bg-orange-500 hover:shadow-orange-700 disabled:hover:shadow-zinc-700 hover:shadow-lg;
   }
   .lime-square {
-    @apply text-lime-900 bg-lime-400 hover:text-lime-200 hover:bg-lime-500;
+    @apply text-lime-900 bg-lime-400 hover:text-lime-200 hover:bg-lime-500 hover:shadow-lime-700 disabled:hover:shadow-zinc-700 hover:shadow-lg;
   }
   .emerald-square {
-    @apply text-emerald-900 bg-emerald-400 hover:text-emerald-200 hover:bg-emerald-500;
+    @apply text-emerald-900 bg-emerald-400 hover:text-emerald-200 hover:bg-emerald-500 hover:shadow-emerald-700 disabled:hover:shadow-zinc-700 hover:shadow-lg;
   }
   .red-show {
     @apply text-red-900 bg-red-400;
