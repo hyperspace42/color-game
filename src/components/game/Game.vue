@@ -1,7 +1,12 @@
 <template>
+  <ModalWindowComponent :showModal="modalState" @accept="confirmEndGame" @cancel="closeModal">
+    <template #body>
+      <span class="text-xl text-zinc-200">Are you sure you want to end the game?</span>
+    </template>
+  </ModalWindowComponent>
   <LossLife />
   <button
-    @click="endGame"
+    @click="openModal"
     class="text-xl text-rose-500 bg-rose-900 hover:text-rose-900 hover:bg-rose-500 absolute top-6 right-8 py-2 px-3 rounded-xl transition"
   >
     Exit
@@ -24,6 +29,8 @@ import GamePickColorButton from '@/components/game/GamePickColorButton.vue';
 import ColorsPreview from '@/components/game/ColorsPreview.vue';
 import UserPickedPreview from '@/components/game/UserPickedPreview.vue';
 import GameLifes from '@/components/game/GameLifes.vue';
+import ModalWindowComponent from '@components/ModalWindowComponent.vue';
+import useModalWindow from '@composables/useModalWindow';
 
 import { useGameStore } from '@store/useGameStore';
 import { storeToRefs } from 'pinia';
@@ -35,6 +42,17 @@ const { colorsClasses, previewColor, countOfRounds } = storeToRefs(gameStore);
 const endGame = function () {
   gameStore.endGame();
 };
+
+// #region modal window
+
+const { modalState, openModal, closeModal } = useModalWindow();
+
+const confirmEndGame = function () {
+  closeModal();
+  endGame();
+};
+
+//#endregion
 </script>
 
 <style lang="scss" scoped></style>
