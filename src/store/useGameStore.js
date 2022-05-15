@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import dayjs from "dayjs";
-import "dayjs/locale/ru";
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
 
 export const useGameStore = defineStore('gameStore', {
   state: () => {
@@ -16,7 +16,7 @@ export const useGameStore = defineStore('gameStore', {
         'indigo-square',
         'purple-square',
       ],
-      showingColor: 'none',
+      previewColor: 'none',
       colorStack: [],
       userPickedColorStack: [],
       records: [],
@@ -34,6 +34,8 @@ export const useGameStore = defineStore('gameStore', {
   },
 
   actions: {
+    //#region color pick actions
+
     pickRandomColor() {
       const colors = this.getColors;
       let color = Math.floor(Math.random() * colors.length);
@@ -45,12 +47,15 @@ export const useGameStore = defineStore('gameStore', {
       this.userPickedColorStack.push(color);
     },
 
+    //#endregion
+
+    //#region game parameters control actions
+
     clearValues() {
       this.colorStack = [];
       this.userPickedColorStack = [];
       this.countOfRounds = 0;
-      this.lifes = 0;
-      this.showingColor = 'none';
+      this.previewColor = 'none';
       this.isPreview = false;
     },
 
@@ -72,6 +77,10 @@ export const useGameStore = defineStore('gameStore', {
       this.lifes -= 1;
       this.repeatRound();
     },
+
+    //#endregion
+
+    // #region rounds control actions
 
     repeatRound() {
       this.userPickedColorStack = [];
@@ -96,23 +105,29 @@ export const useGameStore = defineStore('gameStore', {
       setTimeout(() => (this.isPreview = false), this.colorStack.length * 1000 + 750);
     },
 
+    // #endregion
+
+    // #region records functions
+
     loadRecords() {
       this.records = JSON.parse(localStorage.getItem('records')) || [];
     },
 
     saveRecords() {
-      const date = dayjs().format('YYYY MMM D, HH:mm:ss')
+      const date = dayjs().format('YYYY MMM D, HH:mm:ss');
       localStorage.setItem('records', JSON.stringify([...this.records, `${this.countOfRounds} ${date}`]));
     },
+
+    // #endregion
 
     previewColors() {
       this.colorStack.forEach((color, index) => {
         setTimeout(() => {
-          this.showingColor = 'none';
+          this.previewColor = 'none';
         }, (index + 1) * 1000 - 400);
 
         setTimeout(() => {
-          this.showingColor = color;
+          this.previewColor = color;
         }, (index + 1) * 1000);
       });
     },
@@ -122,9 +137,14 @@ export const useGameStore = defineStore('gameStore', {
         return color === this.colorStack[index];
       });
 
-      if (!every) {
+      return every;
+    },
+
+    gameIsEnded() {
+      const comparedPickedColors = this.comparePickedColors();
+
+      if (!comparedPickedColors) {
         if (this.lifes === 1) {
-          console.log('Game ended');
           this.endGame();
           return;
         }
@@ -133,9 +153,7 @@ export const useGameStore = defineStore('gameStore', {
         return;
       }
 
-      if (this.colorStack.length === this.userPickedColorStack.length) {
-        this.startNewRound();
-      }
+      if (this.colorStack.length === this.userPickedColorStack.length) this.startNewRound();
     },
   },
 });
