@@ -127,6 +127,11 @@ export const useGameStore = defineStore('gameStore', {
       localStorage.setItem('records', JSON.stringify([...this.records, `${this.countOfRounds} ${date}`]));
     },
 
+    clearRecords() {
+      this.records = []
+      localStorage.removeItem('records')
+    },
+
     // #endregion
 
     previewColors() {
