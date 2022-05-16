@@ -117,7 +117,7 @@ export const useGameStore = defineStore('gameStore', {
 
       this.previewColors();
 
-      this.pushIntoTimeoutsArray(setTimeout(() => (this.isPreview = false), this.colorStack.length * 1000 + 750));
+      this.pushIntoTimeoutsArray(setTimeout(() => (this.isPreview = false), (this.colorStack.length + 1) * 1000 + 750));
     },
 
     repeatRound() {
@@ -127,7 +127,7 @@ export const useGameStore = defineStore('gameStore', {
 
       this.previewColors();
 
-      this.pushIntoTimeoutsArray(setTimeout(() => (this.isPreview = false), this.colorStack.length * 1000 + 750));
+      this.pushIntoTimeoutsArray(setTimeout(() => (this.isPreview = false), (this.colorStack.length + 1) * 1000 + 750));
     },
 
     // #endregion
@@ -168,6 +168,8 @@ export const useGameStore = defineStore('gameStore', {
             this.previewColor = color;
           }, (index + 1) * 1000)
         );
+
+        this.pushIntoTimeoutsArray(setTimeout(() => this.previewColor = 'none', (this.colorStack.length + 1) * 1000))
       });
     },
 
