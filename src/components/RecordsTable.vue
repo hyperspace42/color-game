@@ -75,7 +75,7 @@ const clicedRecords = computed(() => {
   }
 
   .records_table {
-    width: 35%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -96,7 +96,13 @@ const clicedRecords = computed(() => {
 
 @media screen and (max-width: 620px) {
   .records_table {
-    width: 55%;
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .records_table {
+    width: 80%;
   }
 }
 </style>
